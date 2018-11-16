@@ -36,7 +36,22 @@ with open('static/mentalhealth_by_healthboard.csv') as mh:
     # Need to delete the column header
     del mh_list[0]
 
+# Opens and appends to pop_list the list of populations for each healthboard
+with open('static/population_healthboard.csv') as pop:
+    readCSV = csv.reader(pop, delimiter=',')
+    pop_list = []
+    for row in readCSV:
+        # Just all of the potentially relevant data, can cut it down to what we need when we decide on visualisation.
+        pop = {"healthboard": row[1], "gender": row[3], "count": row[4]}
+        pop_list += [pop]
+    # Need to delete the column header
+    del pop_list[0]
+
+
+
+
 # Verified list lengths with parsed data that all is correctly parsed.
 print(len(mh_list))
 print(len(alcohol_list))
 print(len(code_list))
+print(len(pop_list))
