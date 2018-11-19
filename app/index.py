@@ -42,16 +42,53 @@ with open('static/population_healthboard.csv') as pop:
     pop_list = []
     for row in readCSV:
         # Just all of the potentially relevant data, can cut it down to what we need when we decide on visualisation.
-        pop = {"healthboard": row[1], "gender": row[3], "count": row[4]}
+        pop = {"year": row[0], "healthboard": row[1], "gender": row[3], "count": row[4]}
         pop_list += [pop]
     # Need to delete the column header
     del pop_list[0]
 
+financial_years = ["2006,07", "2007,08", "2008,09", "2009,10", "2010/11", "2011/12",
+                   "2012/13", "2013/14", "2014/15", "2015/16", "2016/17"]
+
+population_years = ["2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"]
 
 
+def get_alcohol_by_hb(hb, year):
+    for i in alcohol_list:
+        if i["healthboard"] == hb and i["financial year"] == year and i["condition"] == "All alcohol conditions":
+            return int(i["no_patients"])
 
-# Verified list lengths with parsed data that all is correctly parsed.
-print(len(mh_list))
-print(len(alcohol_list))
-print(len(code_list))
-print(len(pop_list))
+
+def get_population_by_hb(hb, year):
+    population = 0
+    for i in pop_list:
+        if i["year"] == year and i["healthboard"] == hb:
+            population += int(i["count"])
+    return population
+
+
+# Graph of year/ratio of patients to population
+def get_all_alcohol_conditions_graph(hb):
+    output_list = []
+    for i in range(len(financial_years)):
+
+        if get_alcohol_by_hb(hb, financial_years[i]) is not None \
+                and get_population_by_hb(hb, population_years[i]) is not None \
+                and get_population_by_hb(hb, population_years[i]) is not 0:
+            output_list += [[population_years[i], (get_alcohol_by_hb(hb, financial_years[i]) /
+                             get_population_by_hb(hb, population_years[i])) * 100]]
+    if output_list:
+        return output_list
+
+
+def get_hb_by_code(code):
+    for i in code_list:
+        if i["code"] == code:
+            return i["name"]
+    return "code not found"
+
+
+for i in code_list:
+    print(get_hb_by_code(i["code"]))
+    print(get_all_alcohol_conditions_graph(i["code"]))
+
