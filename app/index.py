@@ -88,7 +88,14 @@ def get_hb_by_code(code):
     return "code not found"
 
 
-for i in code_list:
-    print(get_hb_by_code(i["code"]))
-    print(get_all_alcohol_conditions_graph(i["code"]))
+# Returns the data for graphing each healthboards all alcohol patients by year
+def return_all_alcohol_graph():
+    otg = []
+    for i in code_list:
+        if get_all_alcohol_conditions_graph(i["code"]) is not None:
+            temp = [get_hb_by_code(i["code"])] + get_all_alcohol_conditions_graph(i["code"])
+            otg += [temp]
+    return otg
 
+
+print(return_all_alcohol_graph())
