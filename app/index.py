@@ -53,9 +53,22 @@ financial_years = ["2006,07", "2007,08", "2008,09", "2009,10", "2010/11", "2011/
 population_years = ["2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"]
 
 
-def get_alcohol_by_hb(hb, year):
+def get_alcohol_conditions():
+    list = []
     for i in alcohol_list:
-        if i["healthboard"] == hb and i["financial year"] == year and i["condition"] == "All alcohol conditions":
+        if i["condition"] not in list and i["condition"] not in \
+                ["ALD - Fatty Liver", "ALD - Alcoholic Hepatitis", "ALD - Cirrhosis", "ALD - Unspecified",
+                 "M&B - Withdrawal state", "Toxic Effects of Alcohol", "M&B - Withdrawal state with delirium",
+                 "M&B - Psychotic and amnesic disorders", "M&B - Other/unspecified mental and behavioural disorders",
+                 "Alcohol Related Brain Damage", "Alcoholic Cardiomyopathy", "Alcoholic Cardiomyopathy",
+                 "Alcoholic Gastritis", "Alcohol-induced pancreatitis"]:
+            list += [i["condition"]]
+    return list
+
+
+def get_alcohol_by_hb(hb, year, condition):
+    for i in alcohol_list:
+        if i["healthboard"] == hb and i["financial year"] == year and i["condition"] == condition:
             return int(i["no_patients"])
 
 
@@ -64,18 +77,18 @@ def get_population_by_hb(hb, year):
     for i in pop_list:
         if i["year"] == year and i["healthboard"] == hb:
             population += int(i["count"])
-    return population
+    return int(population)
 
 
 # Graph of year/ratio of patients to population
-def get_all_alcohol_conditions_graph(hb):
+def get_all_alcohol_conditions_graph(hb, condition):
     output_list = []
     for i in range(len(financial_years)):
 
-        if get_alcohol_by_hb(hb, financial_years[i]) is not None \
+        if get_alcohol_by_hb(hb, financial_years[i], condition) is not None \
                 and get_population_by_hb(hb, population_years[i]) is not None \
                 and get_population_by_hb(hb, population_years[i]) is not 0:
-            output_list += [[population_years[i], (get_alcohol_by_hb(hb, financial_years[i]) /
+            output_list += [[population_years[i], (get_alcohol_by_hb(hb, financial_years[i], condition) /
                              get_population_by_hb(hb, population_years[i])) * 100]]
     if output_list:
         return output_list
@@ -89,13 +102,21 @@ def get_hb_by_code(code):
 
 
 # Returns the data for graphing each healthboards all alcohol patients by year
-def return_all_alcohol_graph():
+def return_all_alcohol_graph(condition):
     otg = []
     for i in code_list:
-        if get_all_alcohol_conditions_graph(i["code"]) is not None:
-            temp = [get_hb_by_code(i["code"])] + get_all_alcohol_conditions_graph(i["code"])
+        if get_all_alcohol_conditions_graph(i["code"], condition) is not None:
+            temp = [get_hb_by_code(i["code"])] + get_all_alcohol_conditions_graph(i["code"], condition)
             otg += [temp]
     return otg
 
 
-print(return_all_alcohol_graph())
+# This is the function which is to be called from the controller.
+# It packages each of the graphs as lists of lists, which can then be individually accessed.
+def send_alcohol_data():
+    send = []
+    for i in get_alcohol_conditions():
+        send += [[i, return_all_alcohol_graph(i)]]
+    return send
+
+
