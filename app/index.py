@@ -80,7 +80,13 @@ def get_population_by_hb(hb, year):
     return int(population)
 
 
-# Graph of year/ratio of patients to population
+def get_mental_by_hb(hb, year):
+    for i in mh_list:
+        if i["healthboard"] == hb and i["financial year"] == year:
+            return int(i["no_patients"])
+
+
+# Graph of year/ratio of patients to population for alcohol
 def get_all_alcohol_conditions_graph(hb, condition):
     output_list = []
     for i in range(len(financial_years)):
@@ -94,12 +100,28 @@ def get_all_alcohol_conditions_graph(hb, condition):
         return output_list
 
 
+# Graph of year/ratio of patients to population for mental health
+def get_mental_graph(hb):
+    output_list = []
+    for i in range(len(financial_years)):
+
+        if get_mental_by_hb(hb, financial_years[i]) is not None \
+                and get_population_by_hb(hb, population_years[i]) is not None \
+                and get_population_by_hb(hb, population_years[i]) is not 0:
+            output_list += [[population_years[i], (get_mental_by_hb(hb, financial_years[i]) /
+                             get_population_by_hb(hb, population_years[i])) * 100]]
+    if output_list:
+        return output_list
+
+
 def get_hb_by_code(code):
     for i in code_list:
         if i["code"] == code:
             return i["name"]
     return "code not found"
 
+
+# could create a get_financial_year function by parsing in mental health csv file
 
 # Returns the data for graphing each healthboards all alcohol patients by year
 def return_all_alcohol_graph(condition):
@@ -111,6 +133,18 @@ def return_all_alcohol_graph(condition):
     return otg
 
 
+def return_mental_graph():
+    otg = []
+    for i in code_list:
+        if get_mental_graph(i["code"]) is not None:
+            temp = [get_hb_by_code(i["code"])] + get_mental_graph(i["code"])
+            otg += [temp]
+    return otg
+
+
+print(return_mental_graph())
+
+
 # This is the function which is to be called from the controller.
 # It packages each of the graphs as lists of lists, which can then be individually accessed.
 def send_alcohol_data():
@@ -118,5 +152,3 @@ def send_alcohol_data():
     for i in get_alcohol_conditions():
         send += [[i, return_all_alcohol_graph(i)]]
     return send
-
-
