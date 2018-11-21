@@ -53,6 +53,7 @@ financial_years = ["2006,07", "2007,08", "2008,09", "2009,10", "2010/11", "2011/
 population_years = ["2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"]
 
 
+# Function to parse all the alcohol related conditions from csv file
 def get_alcohol_conditions():
     list = []
     for i in alcohol_list:
@@ -66,12 +67,14 @@ def get_alcohol_conditions():
     return list
 
 
+# Function to obtain the number of patients by healthboard for a certain alcohol related condition and year
 def get_alcohol_by_hb(hb, year, condition):
     for i in alcohol_list:
         if i["healthboard"] == hb and i["financial year"] == year and i["condition"] == condition:
             return int(i["no_patients"])
 
 
+# Function to obtain the population by healthboard and year
 def get_population_by_hb(hb, year):
     population = 0
     for i in pop_list:
@@ -80,6 +83,7 @@ def get_population_by_hb(hb, year):
     return int(population)
 
 
+# Function to obtain the number of mental health related patients by healthboard and year
 def get_mental_by_hb(hb, year):
     for i in mh_list:
         if i["healthboard"] == hb and i["financial year"] == year:
@@ -108,12 +112,14 @@ def get_mental_graph(hb):
         if get_mental_by_hb(hb, financial_years[i]) is not None \
                 and get_population_by_hb(hb, population_years[i]) is not None \
                 and get_population_by_hb(hb, population_years[i]) is not 0:
-            output_list += [[population_years[i], (get_mental_by_hb(hb, financial_years[i]) /
+            output_list += [[population_years[i], float(get_mental_by_hb(hb, financial_years[i]) /
                              get_population_by_hb(hb, population_years[i])) * 100]]
     if output_list:
+        # print(output_list)
         return output_list
 
 
+# Function to obtain the healthboard from the code
 def get_hb_by_code(code):
     for i in code_list:
         if i["code"] == code:
@@ -121,9 +127,9 @@ def get_hb_by_code(code):
     return "code not found"
 
 
-# could create a get_financial_year function by parsing in mental health csv file
+# Could create a get_financial_year function by parsing in mental health csv file
 
-# Returns the data for graphing each healthboards all alcohol patients by year
+# Returns the data for graphing each healthboard's all alcohol patients by year
 def return_all_alcohol_graph(condition):
     otg = []
     for i in code_list:
@@ -133,6 +139,7 @@ def return_all_alcohol_graph(condition):
     return otg
 
 
+# Returns the data for graphing each healthboard's mental health patients by year
 def return_mental_graph():
     otg = []
     for i in code_list:
@@ -142,7 +149,7 @@ def return_mental_graph():
     return otg
 
 
-print(return_mental_graph())
+# print(return_mental_graph())
 
 
 # This is the function which is to be called from the controller.
@@ -152,3 +159,7 @@ def send_alcohol_data():
     for i in get_alcohol_conditions():
         send += [[i, return_all_alcohol_graph(i)]]
     return send
+
+# Do we need a send function for the mental health data?
+# There is only one type of condition compared to the alcohol data so I'm unsure if we need one
+# Could we just use the return_mental_graph method?
