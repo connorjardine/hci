@@ -115,7 +115,6 @@ def get_mental_graph(hb):
             output_list += [[population_years[i], float(get_mental_by_hb(hb, financial_years[i]) /
                              get_population_by_hb(hb, population_years[i])) * 100]]
     if output_list:
-        # print(output_list)
         return output_list
 
 
@@ -149,9 +148,6 @@ def return_mental_graph():
     return otg
 
 
-# print(return_mental_graph())
-
-
 # This is the function which is to be called from the controller.
 # It packages each of the graphs as lists of lists, which can then be individually accessed.
 def send_alcohol_data():
@@ -159,7 +155,3 @@ def send_alcohol_data():
     for i in get_alcohol_conditions():
         send += [[i, return_all_alcohol_graph(i)]]
     return send
-
-# Do we need a send function for the mental health data?
-# There is only one type of condition compared to the alcohol data so I'm unsure if we need one
-# Could we just use the return_mental_graph method?

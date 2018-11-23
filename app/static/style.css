@@ -1,0 +1,14 @@
+* {
+    font-size: 100%;
+    font-family: "Avenir Next", sans-serif;
+}
+
+.base-header-div {
+    
+}
+
+.base-header {
+    font-size: 40px;
+    color: #007dc3;
+    padding-left: 30px;
+}

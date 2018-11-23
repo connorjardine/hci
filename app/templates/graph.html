@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Graph{% endblock %}</h1>
+{% block title %}Graph{% endblock %}
 {% endblock %}
 
 {% block content %}
+
+<a href="{{ url_for('show_map') }}">link text</a>
+
   Map and Graph go here.
 {% endblock %}

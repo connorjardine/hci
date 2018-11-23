@@ -2,4 +2,8 @@
 <title>Alcohol and Mental Health Data - {% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+<div class = "base-header-div">
+    <h1 class = "base-header"> Scottish {% block header %}{% endblock %} of Healthboards </h1>
+</div>
+
 {% block content %}{% endblock %}
