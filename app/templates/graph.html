@@ -6,7 +6,12 @@
 
 {% block content %}
 
-<a href="{{ url_for('show_map') }}">link text</a>
+<div class = "graph-link-container">
+  <a class = "graph-link" href="{{ url_for('show_map') }}">Return</a>
+  <img src = "static/back-arrow.png">
+</div>
 
+<div class = "graph-container">
   Map and Graph go here.
+</div>
 {% endblock %}

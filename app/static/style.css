@@ -3,12 +3,49 @@
     font-family: "Avenir Next", sans-serif;
 }
 
+a:link {
+    color: white;
+    text-decoration-line: none;
+}
+
+a:visited {
+    color: white;
+    text-decoration-line: none;
+}
+
+a:hover {
+    color: gray;
+    text-decoration-line: none;
+}
+
+a:active {
+    color: gray;
+    text-decoration-line: none;
+}
 .base-header-div {
-    
+
 }
 
 .base-header {
     font-size: 40px;
     color: #007dc3;
     padding-left: 30px;
+}
+
+.graph-link-container {
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #007dc3;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.graph-link {
+    padding: 10px;
+}
+
+.graph-container {
+
 }
