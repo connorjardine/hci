@@ -1,4 +1,5 @@
 I used miniconda but anaconda should work
+open Anaconda prompt 
 
 conda create --name hciTest
 
