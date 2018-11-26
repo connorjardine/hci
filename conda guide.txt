@@ -1,0 +1,29 @@
+I used miniconda but anaconda should work
+
+conda create --name hciTest
+
+conda activate hciTest  (for windows)
+conda source activate hciTest (for linux)
+
+
+conda install -c conda-forge pandas
+
+go to C:\Users\username\Miniconda3\envs\hciTest\conda-meta or similar for anaconda
+create a file called pinned in this folder and add lines to the file : 
+matplotlib ==3.0.2
+matplotlib-base == 3.0.2
+
+conda install -c conda-forge matplotlib
+conda install -c conda-forge pysal
+conda install -c conda-forge shapely
+conda install -c conda-forge fiona
+conda install -c conda-forge descartes
+conda install -c conda-forge basemap
+conda install -c conda-forge basemap-data-hires
+
+
+in the project in pycharm, go to File > Settings > Project > Project Interpreter 
+select Interpreter Python 3.6 at C:\Users\username\Miniconda3\envs\hciTest\python.exe
+
+hit OK and everything should run
+
