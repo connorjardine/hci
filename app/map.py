@@ -15,26 +15,20 @@ from descartes import PolygonPatch
 import fiona
 from itertools import chain
 import pysal.esda.mapclassify as mapclassify
+import io
+import random
+from flask import Response
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 import pyproj  # Import the pyproj module
 
 
 
-data1 = pd.read_csv('static/alcohol_by_healthboard.csv')
+data1 = pd.read_csv('static/mappedData.csv')
 
 
-a = data1[data1['FinancialYear'] == '2016/17']
-
-a.to_csv('just1617.csv')
-
-data2 = pd.read_csv('just1617.csv')
-
-data = data2[data2['Condition'] == 'Toxic Effects of Alcohol']
-
-#data.to_csv('AAjust1617.csv')
-
-
-print ('The data contains ' + str(data.shape[0]) + ' rows and ' + str(data.shape[1]) + ' columns.')
+data = data1[data1['year'] == 2017]
 
 
 #load the shape file as shp. Here I have saved my shapefile in the folder 'LKA_adm_2' within my working directory.
@@ -64,8 +58,6 @@ ur = (bds[2],bds[3])
 
 #concatenate the lower left and upper right into a variable called coordinates
 coords = list(chain(ll, ur))
-
-print(coords)
 
 #define variables for the width and the height of the map
 w, h = coords[2] - coords[0], coords[3] - coords[1]
@@ -116,16 +108,6 @@ m.readshapefile(
     zorder=2)
 
 
-
-
-print ('m.scotland is a ' + str(type(m.scotland)) + ' object.')
-
-print ('It contains ' + str(len(m.scotland)) + ' items.')
-
-print ('The first list item itself contains ' + str(len(m.scotland[0])) + ' items.')
-
-print (m.scotland_info[16])
-
 # set up a map dataframe
 df_map = pd.DataFrame({
 
@@ -139,22 +121,13 @@ df_map['area_m'] = df_map['poly'].map(lambda x: x.area/1000)
 
 #convert meters to miles
 df_map['area_miles'] = df_map['area_m'] * 0.000621371
+data = data.rename(columns={'code':'boardcode'})
 
-print (df_map.head())
-
-print(data.head())
-
-data = data.rename(columns={'HBT2014':'boardcode'})
-
-
-print("Data for S08000027")
-
-print (data[data['boardcode']=="S08000027"])
 
 df_map = pd.merge(df_map,data,on='boardcode')
 jenks = True
 
-var_2_analyze = 'EASRStays'
+var_2_analyze = 'alcoholratio'
 
 if jenks == True:
     # Calculate Jenks natural breaks for each polygon
@@ -188,7 +161,7 @@ else:
 # check if 'bins' already exists and drop it if it does so that we can recreate it using our new break information
 if 'bins' in df_map.columns:
     df_map = df_map.drop('bins',1)
-    print ('Bins column already existed, so we dropped the bins column')
+    #print ('Bins column already existed, so we dropped the bins column')
 
 
 # the notnull method lets us match indices when joining
@@ -212,12 +185,10 @@ else:
     # if user defined, use these ones
     bin_labels = ["< %0.0f" % b for b in breaks.bins]
 
-print('Here are the bin labels:')
-for label in bin_labels:
-    print(label)
+#print('Here are the bin labels:')
+#for label in bin_labels:
+    #print(label)
 
-
-df_map.to_csv("dataframe.csv")
 
 
 
@@ -267,78 +238,75 @@ def cmap_discretize(cmap, N):
 
 ## %matplotlib inline
 
-# initialize the plot
-plt.clf()
+def create_figure():
+    # initialize the plot
+    plt.clf()
 
-# define the figure and set the facecolor (e.g. background) to white
-fig = plt.figure(facecolor='white')
+    # define the figure and set the facecolor (e.g. background) to white
+    fig = plt.figure(facecolor='white')
 
-# ad a subplot called 'ax'
-ax = fig.add_subplot(111, facecolor='w', frame_on=False)
+    # ad a subplot called 'ax'
+    ax = fig.add_subplot(111, facecolor='w', frame_on=False)
 
-# use a blue colour ramp ('Blues') - we'll be converting it to a map using cmap()
-# you could also use 'Oranges' or 'Greens'
-cmap = plt.get_cmap('Blues')
-
-
-# draw district with grey outlines
-df_map['patches'] = df_map['poly'].map(lambda x: PolygonPatch(x, ec='#555555', lw=.2, alpha=1., zorder=4))
+    # use a blue colour ramp ('Blues') - we'll be converting it to a map using cmap()
+    # you could also use 'Oranges' or 'Greens'
+    cmap = plt.get_cmap('Blues')
 
 
-# set the PatchCollection with our defined 'patches'
-pc = PatchCollection(df_map['patches'], match_original=True)
+    # draw district with grey outlines
+    df_map['patches'] = df_map['poly'].map(lambda x: PolygonPatch(x, ec='#555555', lw=.2, alpha=1., zorder=4))
 
-# normalize our bins between the min and max values within the bins
-norm = Normalize(vmin=df_map['bins'].min(), vmax=df_map['bins'].max())
 
-# impose our color map onto the patch collection
-pc.set_facecolor(cmap(norm(df_map['bins'].values)))
-ax.add_collection(pc)
+    # set the PatchCollection with our defined 'patches'
+    pc = PatchCollection(df_map['patches'], match_original=True)
 
-# Add a color bar which has our bin_labels applied
-cb = colorbar_index(ncolors=len(bin_labels), cmap=cmap, shrink=0.5, labels=bin_labels)
-# set the font size of the labels (set to size 10 here)
-cb.ax.tick_params(labelsize=10)
+    # normalize our bins between the min and max values within the bins
+    norm = Normalize(vmin=df_map['bins'].min(), vmax=df_map['bins'].max())
 
-# Create a bit of small print
-smallprint = ax.text(
-    # set the x,y location of the smallprint
-    1, 1,
-    # add whatever text you would like to appear
-    'This is a map of Sri Lanka showing ' + var_2_analyze + ' per district.',
-    # set the horizontal/vertical alignment
-    ha='right', va='bottom',
-    # set the size and the color
-    size=10,
-    color='#555555',
-    transform=ax.transAxes)
+    # impose our color map onto the patch collection
+    pc.set_facecolor(cmap(norm(df_map['bins'].values)))
+    ax.add_collection(pc)
 
-# Draw a map scale
-m.drawmapscale(
-    #set the coordinates where the scale should appear
-    coords[0] + 0.08, coords[1] + 0.215,
-    coords[0], coords[1],
-    # what is the max value of the scale (here it's set to 25 for 25 miles)
-    25.,
-    barstyle='fancy', labelstyle='simple',
-    fillcolor1='w', fillcolor2='#555555',
-    fontcolor='#555555',
-    zorder=5,
-    # what units would you like to use. Defaults to km
-    units='mi')
+    # Add a color bar which has our bin_labels applied
+    cb = colorbar_index(ncolors=len(bin_labels), cmap=cmap, shrink=0.5, labels=bin_labels)
+    # set the font size of the labels (set to size 10 here)
+    cb.ax.tick_params(labelsize=10)
 
-# set the layout to maximally fit the bounding area
-plt.tight_layout()
 
-# define the size of the figure
-fig.set_size_inches(5,6)
+    # Draw a map scale
+    m.drawmapscale(
+        #set the coordinates where the scale should appear
+        coords[0] + 0.08, coords[1] + 0.215,
+        coords[0], coords[1],
+        # what is the max value of the scale (here it's set to 25 for 25 miles)
+        1.,
+        barstyle='fancy', labelstyle='simple',
+        fillcolor1='w', fillcolor2='#555555',
+        fontcolor='#555555',
+        zorder=5,
+        # what units would you like to use. Defaults to km
+        units='mi')
 
-# save the figure. Increase the dpi to increase the quality of the output .png. For example, dpi=1000 is super high quality
-# note that the figure will be saved as 'sri_lanka_' then the name of the variable under analysis
-# you can change this to whatever you want
-plt.savefig('scotland_' + var_2_analyze + '.png', dpi=100, alpha=True)
+    # set the layout to maximally fit the bounding area
+    plt.tight_layout()
 
-# display our plot
-plt.show()
+    # define the size of the figure
+    fig.set_size_inches(5,6)
 
+    # save the figure. Increase the dpi to increase the quality of the output .png. For example, dpi=1000 is super high quality
+    # note that the figure will be saved as 'sri_lanka_' then the name of the variable under analysis
+    # you can change this to whatever you want
+    plt.savefig('/static/images/map.png', dpi=500, alpha=True)
+    return fig
+
+    # display our plot
+    #plt.show()
+
+
+@app.route('/map')
+def plot_png():
+    fig = create_figure()
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
