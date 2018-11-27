@@ -62,3 +62,54 @@ a:active {
 .graph-container {
     text-align: center;
 }
+
+.graph-content-container {
+    text-align: center;
+}
+
+.graph-content {
+    display: inline-block;
+}
+
+.map-selector-container {
+    text-align: right;
+}
+
+.map-selector {
+    display: inline-block;
+    text-align: right;
+}
+
+.map-text {
+    display: inline-flex;
+    width: 700px;
+    text-align: left;
+}
+
+.map-container {
+    text-align: right;
+}
+.map-link-container {
+    display: inline-block;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #007dc3;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    text-align: left;
+    width: 150px
+}
+
+.map-link {
+    padding: 10px 22px 10px 30px;
+}
+
+.map-content-container {
+    text-align: right;
+}
+
+.map-content {
+    display: inline-block;
+}
