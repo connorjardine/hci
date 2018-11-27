@@ -5,24 +5,29 @@
 {% endblock %}
 
 {% block content %}
-
+<div class = "map-content-container">
     <div class = "map-selector">
-        <h2>
-            Use this application to compare and contrast between alcohol related hospital stays and mental health related
-            hospital stays for each healthboard.
-        </h2>
-        <h2>
-            Areas are on a colour scale of light to dark where a darker colour represents a larger amount of hospital stays
-            per 100 population and a lighter colour represents less patients.
-        </h2>
+        <div class = "map-text">
+            <h2>
+                Use this application to compare and contrast between alcohol related hospital stays and mental health related
+                hospital stays for each healthboard.
+                <br>
+                Areas are on a colour scale of light to dark where a darker colour represents a larger amount of hospital stays
+                per 100 population and a lighter colour represents less patients.
+            </h2>
+        </div>
         <div class = "hb-selector">
             <form action="{{ url_for('show_map') }}" method="POST">
                 {{ form.hb }}
                 {{ form.submit() }}
             </form>
         </div>
-        <div class = "graph-link-container">
-            <a class = "graph-link" href="{{ url_for('show_graph') }}">Show Graphs</a>
+        <div class = "map-container">
+            <div class = "map-link-container">
+                <a class = "map-link" href="{{ url_for('show_graph') }}">Show Graphs</a>
+            </div>
         </div>
     </div>
+</div>
+
 {% endblock %}

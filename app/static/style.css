@@ -4,11 +4,12 @@
 }
 
 .app-container {
-    text-align: center;
+    text-align: right;
 }
 
 .app {
     display: inline-block;
+    margin-right: 46.5%
 }
 
 a:link {
@@ -30,15 +31,11 @@ a:active {
     color: lightgray;
     text-decoration-line: none;
 }
-.base-header-div {
-    text-align: center;
-}
 
 .base-header {
     font-size: 40px;
     color: #007dc3;
     display: inline-block;
-    margin-right: 500px;
 }
 
 .graph-link-container {
@@ -49,7 +46,7 @@ a:active {
     background-color: #007dc3;
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-right: 1000px;
+    margin-right: 83%;
     color: white;
     text-align: left;
     width: 100px
@@ -61,4 +58,52 @@ a:active {
 
 .graph-container {
     text-align: center;
+}
+
+.graph-content-container {
+    text-align: center;
+}
+
+.graph-content {
+    display: inline-block;
+}
+
+.hb-selector {
+    text-align: right;
+}
+
+.map-selector {
+    display: inline-block;
+    text-align: left;
+}
+
+.map-text {
+    display: inline-flex;
+    width: 50%;
+    text-align: left;
+    margin-left: 50%;
+}
+
+.map-container {
+    text-align: right;
+}
+.map-link-container {
+    display: inline-block;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #007dc3;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    text-align: left;
+    width: 150px
+}
+
+.map-link {
+    padding: 10px 22px 10px 30px;
+}
+
+.map-content-container {
+    text-align: right;
 }

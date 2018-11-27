@@ -3,16 +3,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 
-<div class = "base-header-div">
-    <div class = "app-container">
-        <div class = "app">
-            <h1 class = "base-header"> Scottish {% block header %}{% endblock %} of Healthboards </h1>
-        </div>
+<div class = "app-container">
+    <div class = "app">
+        <h1 class = "base-header"> Scottish {% block header %}{% endblock %} of Healthboards </h1>
     </div>
 </div>
 
-<div class = "app-container">
-    <div class = "app">
-        {% block content %}{% endblock %}
-    </div>
-</div>
+
+{% block content %}{% endblock %}
