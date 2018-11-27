@@ -3,7 +3,7 @@
 import csv
 
 # Opens and appends to code_list the list of healthboards and their relevant code
-with open('static/codes_healthboard.csv') as codes:
+with open('app/static/codes_healthboard.csv') as codes:
     readCSV = csv.reader(codes, delimiter=',')
     code_list = []
     for row in readCSV:
@@ -13,7 +13,7 @@ with open('static/codes_healthboard.csv') as codes:
     del code_list[0]
 
 # Opens and appends to alcohol_list the list of alcohol related data
-with open('static/alcohol_by_healthboard.csv') as alcohol:
+with open('app/static/alcohol_by_healthboard.csv') as alcohol:
     readCSV = csv.reader(alcohol, delimiter=',')
     alcohol_list = []
     for row in readCSV:
@@ -25,7 +25,7 @@ with open('static/alcohol_by_healthboard.csv') as alcohol:
     del alcohol_list[0]
 
 # Opens and appends to mh_list the list of psychiatric inpatient activity data
-with open('static/mentalhealth_by_healthboard.csv') as mh:
+with open('app/static/mentalhealth_by_healthboard.csv') as mh:
     readCSV = csv.reader(mh, delimiter=',')
     mh_list = []
     for row in readCSV:
@@ -37,7 +37,7 @@ with open('static/mentalhealth_by_healthboard.csv') as mh:
     del mh_list[0]
 
 # Opens and appends to pop_list the list of populations for each healthboard
-with open('static/population_healthboard.csv') as pop:
+with open('app/static/population_healthboard.csv') as pop:
     readCSV = csv.reader(pop, delimiter=',')
     pop_list = []
     for row in readCSV:
