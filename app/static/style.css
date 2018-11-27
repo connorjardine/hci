@@ -3,6 +3,14 @@
     font-family: "Avenir Next", sans-serif;
 }
 
+.app-container {
+    text-align: center;
+}
+
+.app {
+    display: inline-block;
+}
+
 a:link {
     color: white;
     text-decoration-line: none;
@@ -14,38 +22,43 @@ a:visited {
 }
 
 a:hover {
-    color: gray;
+    color: lightgray;
     text-decoration-line: none;
 }
 
 a:active {
-    color: gray;
+    color: lightgray;
     text-decoration-line: none;
 }
 .base-header-div {
-
+    text-align: center;
 }
 
 .base-header {
     font-size: 40px;
     color: #007dc3;
-    padding-left: 30px;
+    display: inline-block;
+    margin-right: 500px;
 }
 
 .graph-link-container {
     display: inline-block;
+    border-radius: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #007dc3;
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-right: 1000px;
     color: white;
+    text-align: left;
+    width: 100px
 }
 
 .graph-link {
-    padding: 10px;
+    padding: 10px 22px 10px 30px;
 }
 
 .graph-container {
-
+    text-align: center;
 }
