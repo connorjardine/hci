@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, redirect, render_template
+from flask import Flask, request, url_for, redirect, render_template, flash
 from wtforms import Form, SelectField, SubmitField
 from bokeh.embed import components
 from bokeh.resources import INLINE
@@ -9,22 +9,49 @@ from hci.app.data import *
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['SECRET_KEY'] = "hciisbest"
+
+currhb=0
+curryr = 2011
 
 
 class SimpleForm(Form):
-    hb = SelectField('Languages', choices = [('cpp', 'C++'), ('py', 'Python')])
-    submit = SubmitField("Send")
+    hb = SelectField('Languages', choices=[('0', 'NHS Ayrshire and Arran'), ('1', 'NHS Borders'),
+                                           ('2', 'NHS Dumfries and Galloway'),
+                                           ('3', 'NHS Fife'), ('4', 'NHS Forth Valley'), ('5', 'NHS Grampian'),
+                                           ('6', 'NHS Greater Glasgow and Clyde'),
+                                           ('7', 'NHS Highland'),
+                                           ('8', 'NHS Lanarkshire'),
+                                           ('9', 'NHS Lothian'),
+                                           ('10', 'NHS Orkney'),
+                                           ('11', 'NHS Shetland'),
+                                           ('12', 'NHS Tayside'),
+                                           ('13', 'NHS Western Isles')])
+
+
+class IntermedForm(Form):
+    sel = SelectField('Languages', choices=[('2011', '2011'), ('2012', '2012'), ('2013','2013'),
+                                            ('2014','2014'), ('2015','2015'), ('2016','2016'), ('2017','2017')])
 
 
 @app.route('/map', methods=['POST', 'GET'])
 def show_map():
-    form = SimpleForm()
+    form = SimpleForm(request.form)
+    year = IntermedForm(request.form)
 
-    if request.method == 'POST':
-        # Do stuff here if needed
-        return redirect(url_for('show_graph'))
+    if request.method == 'POST' and form.validate():
+        print(form.hb.data)
+        global currhb
+        currhb= int(form.hb.data)
+        return render_template('map.html', form=form, year=year)
 
-    return render_template('map.html', form=form)
+    if request.method == 'POST' and year.validate():
+        print(year.sel.data)
+        global curryr
+        curryr = int(year.sel.data)
+        return render_template('map.html', form=form, year=year)
+
+    return render_template('map.html', form=form, year=year)
 
 
 @app.route('/graph')
@@ -38,7 +65,7 @@ def show_graph():
 
     # SAMPLE1 IS FOR ALCOHOL DATA
 
-    sample1 = send_alcohol_data()[0][1][0]
+    sample1 = send_alcohol_data()[0][1][currhb]
 
     sam1 = []
     for i in range(1, len(sample1)):
@@ -60,7 +87,7 @@ def show_graph():
 
     # SAMPLE2 IS FOR MENTAL HEALTH DATA
 
-    sample2 = return_mental_graph()[0]
+    sample2 = return_mental_graph()[currhb]
 
     sam2 = []
     for i in range(1, len(sample2)):
@@ -96,3 +123,4 @@ def show_graph():
         css_resources=css_resources,
     )
     return encode_utf8(html)
+
