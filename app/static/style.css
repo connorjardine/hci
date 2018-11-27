@@ -3,6 +3,11 @@
     font-family: "Avenir Next", sans-serif;
 }
 
+img.resize {
+    width:100px; /* you can use % */
+    height: auto;
+}
+
 .app-container {
     text-align: right;
 }
@@ -73,9 +78,9 @@ a:active {
 }
 
 .map {
-    width: 50%;
-    float: left;
+    display: inline-block;
 }
+
 .map-selector {
     display: inline-block;
     text-align: left;
@@ -84,6 +89,7 @@ a:active {
 .map-text {
     display: inline-flex;
     text-align: left;
+    width: 100px;
 }
 
 .map-container {
@@ -111,5 +117,5 @@ a:active {
 }
 
 .map-right-container {
-    margin-left: 50%;
+    display: inline-block;
 }
