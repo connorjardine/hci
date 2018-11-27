@@ -1,0 +1,16 @@
+,Unnamed: 0,Condition,ICD10,ICD10QF,SMRType,FinancialYear,HBT2014,HBT2014QF,EASRStays,EASRPatients,EASRNewPatients,EASRNewPatientsQF,NumberOfStays,NumberOfStaysQF,NumberOfPatients,NumberOfPatientsQF,NumberOfNewPatients,NumberOfNewPatientsQF,AverageNumberOfStaysPerPatient
+142,6447,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S92000003,d,47.1,41.6,22.0,,2569.0,,2274.0,,1213.0,,1.1
+143,6714,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000015,,73.5,65.9,34.6,,257.0,,229.0,,122.0,,1.1
+144,6715,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000016,,62.3,52.4,28.8,,61.0,,52.0,,28.0,,1.2
+145,6716,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000017,,56.7,50.4,27.4,,74.0,,66.0,,35.0,,1.1
+146,6717,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000018,,76.9,65.5,35.3,,278.0,,237.0,,128.0,,1.2
+147,6718,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000019,,30.4,29.2,16.9,,91.0,,87.0,,50.0,,1.0
+148,6719,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000020,,53.2,46.5,26.4,,317.0,,277.0,,157.0,,1.1
+149,6720,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000021,,45.9,41.1,21.1,,560.0,,501.0,,264.0,,1.1
+150,6721,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000022,,42.9,37.6,14.9,,128.0,,113.0,,43.0,,1.1
+151,6722,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000023,,38.7,35.4,20.2,,253.0,,232.0,,133.0,,1.1
+152,6723,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000024,,44.4,38.0,18.9,,412.0,,354.0,,183.0,,1.2
+153,6724,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000025,,45.0,40.8,10.1,,10.0,,9.0,,,c,1.1
+154,6725,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000026,,17.2,17.2,17.2,,,c,,c,,c,1.0
+155,6726,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000027,,26.5,25.0,13.6,,108.0,,102.0,,56.0,,1.1
+156,6727,Toxic Effects of Alcohol,T51,,SMR01,2016/17,S08000028,,63.6,59.5,35.6,,16.0,,15.0,,8.0,,1.1
