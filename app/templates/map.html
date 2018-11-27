@@ -23,10 +23,16 @@
                 </h2>
             </div>
             <div class = "hb-selector">
-                <form action="{{ url_for('show_map') }}" method="POST">
-                    {{ form.hb }}
-                    {{ form.submit() }}
-                </form>
+                    <form action = {{ url_for('show_map') }} method="post">
+                        {{ form.hb }}
+                      <input type=submit value="Select Healthboard">
+                    </form>
+            </div>
+            <div class = "hb-selector">
+                    <form action = {{ url_for('show_map') }} method="post">
+                        {{ year.sel }}
+                      <input type=submit value="Select Year">
+                    </form>
             </div>
             <div class = "map-container">
                 <div class = "map-link-container">
