@@ -4,11 +4,12 @@
 }
 
 .app-container {
-    text-align: center;
+    text-align: right;
 }
 
 .app {
     display: inline-block;
+    margin-right: 46.5%
 }
 
 a:link {
@@ -30,15 +31,11 @@ a:active {
     color: lightgray;
     text-decoration-line: none;
 }
-.base-header-div {
-    text-align: center;
-}
 
 .base-header {
     font-size: 40px;
     color: #007dc3;
     display: inline-block;
-    margin-right: 500px;
 }
 
 .graph-link-container {
@@ -49,7 +46,7 @@ a:active {
     background-color: #007dc3;
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-right: 1000px;
+    margin-right: 83%;
     color: white;
     text-align: left;
     width: 100px
@@ -71,19 +68,20 @@ a:active {
     display: inline-block;
 }
 
-.map-selector-container {
+.hb-selector {
     text-align: right;
 }
 
 .map-selector {
     display: inline-block;
-    text-align: right;
+    text-align: left;
 }
 
 .map-text {
     display: inline-flex;
-    width: 700px;
+    width: 50%;
     text-align: left;
+    margin-left: 50%;
 }
 
 .map-container {
@@ -108,8 +106,4 @@ a:active {
 
 .map-content-container {
     text-align: right;
-}
-
-.map-content {
-    display: inline-block;
 }
