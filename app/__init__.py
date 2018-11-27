@@ -1,5 +1,5 @@
 from flask import Flask, request, url_for, redirect, render_template, flash
-from wtforms import Form, SelectField, SubmitField
+from wtforms import Form, SelectField, RadioField
 from bokeh.embed import components
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
@@ -13,6 +13,7 @@ app.config['SECRET_KEY'] = "hciisbest"
 
 currhb=0
 curryr = 2011
+currg = "combined"
 
 
 class SimpleForm(Form):
@@ -33,25 +34,42 @@ class IntermedForm(Form):
     sel = SelectField('Languages', choices=[('2011', '2011'), ('2012', '2012'), ('2013','2013'),
                                             ('2014','2014'), ('2015','2015'), ('2016','2016'), ('2017','2017')])
 
+class GraphForm(Form):
+    graph = RadioField('Label', choices=[('mental','mental'),('alcohol','alcohol'),('combined','combined')])
+
+
 
 @app.route('/map', methods=['POST', 'GET'])
 def show_map():
     form = SimpleForm(request.form)
     year = IntermedForm(request.form)
+    graph = GraphForm(request.form)
+
+    global curryr
+    global currhb
+    global currg
+
+    img_str = ".\static\map_" + str(curryr) + "mental" + "Ratio.png"
 
     if request.method == 'POST' and form.validate():
         print(form.hb.data)
-        global currhb
+
         currhb= int(form.hb.data)
-        return render_template('map.html', form=form, year=year)
+        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
 
     if request.method == 'POST' and year.validate():
         print(year.sel.data)
-        global curryr
-        curryr = int(year.sel.data)
-        return render_template('map.html', form=form, year=year)
 
-    return render_template('map.html', form=form, year=year)
+        curryr = int(year.sel.data)
+        img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
+        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
+
+    if request.method == 'POST' and graph.validate():
+        print(graph.graph.data)
+        currg = graph.graph.data
+        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
+
+    return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
 
 
 @app.route('/graph')

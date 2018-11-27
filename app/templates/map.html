@@ -8,7 +8,7 @@
 <div class = "map-content-container">
     <div class = "map-selector">
         <div class ="map">
-            <img src=".\static\map_2015mentalRatio.png" width="200">
+            <img src=" {{ img_str }}" width="200">
         </div>
         <div class = "map-right-container">
             <div class = "map-text">
@@ -30,6 +30,12 @@
                     <form action = {{ url_for('show_map') }} method="post">
                         {{ year.sel }}
                       <input type=submit value="Select Year">
+                    </form>
+            </div>
+            <div class = "hb-selector">
+                    <form action = {{ url_for('show_map') }} method="post">
+                        {{ graph.graph }}
+                      <input type=submit value="Select Map">
                     </form>
             </div>
             <div class = "map-container">
