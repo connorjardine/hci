@@ -1,22 +1,31 @@
 from flask import Flask, request, url_for, redirect, render_template
+from wtforms import Form, SelectField, SubmitField
 from bokeh.embed import components
-from bokeh.plotting import figure
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
 from bokeh.plotting import *
-from bokeh.models import ColumnDataSource
 
 from hci.app.data import *
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 
-@app.route('/map')
+class SimpleForm(Form):
+    hb = SelectField('Languages', choices = [('cpp', 'C++'), ('py', 'Python')])
+    submit = SubmitField("Send")
+
+
+@app.route('/map', methods=['POST', 'GET'])
 def show_map():
+    form = SimpleForm()
+
     if request.method == 'POST':
         # Do stuff here if needed
         return redirect(url_for('show_graph'))
-    return render_template('map.html')
+
+    return render_template('map.html', form=form)
+
 
 @app.route('/graph')
 def show_graph():
