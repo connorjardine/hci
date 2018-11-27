@@ -72,6 +72,10 @@ a:active {
     text-align: right;
 }
 
+.map {
+    width: 50%;
+    float: left;
+}
 .map-selector {
     display: inline-block;
     text-align: left;
@@ -79,9 +83,7 @@ a:active {
 
 .map-text {
     display: inline-flex;
-    width: 50%;
     text-align: left;
-    margin-left: 50%;
 }
 
 .map-container {
@@ -106,4 +108,8 @@ a:active {
 
 .map-content-container {
     text-align: right;
+}
+
+.map-right-container {
+    margin-left: 50%;
 }
