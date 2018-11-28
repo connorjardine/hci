@@ -32,7 +32,7 @@ a:visited {
 }
 
 a:hover {
-    color: lightgray;
+    color: white;
     text-decoration-line: none;
 }
 
@@ -63,6 +63,17 @@ a:active {
 
 .graph-link {
     padding: 10px 22px 10px 30px;
+
+}
+
+.graph-link:hover{
+    text-decoration-line: none
+}
+
+
+.graph-link-container:hover{
+    background-color: #c0c0c0;
+    text-decoration-line: none
 }
 
 .graph-container {
@@ -127,4 +138,8 @@ a:active {
 
 .map-controls {
     text-align: left;
+}
+
+.map-selector {
+    display: inline-block;
 }

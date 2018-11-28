@@ -31,26 +31,49 @@
 
                         <div class = "hb-selector">
                             <form action = {{ url_for('show_map') }} method="post">
-                                {{ year.sel }}
-                                {{ year.graph }}
+                                <div class="map-selector">
+                                    {% for i in year.graph %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td>{{ i.label }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!--{{ year.graph(class_="map-selector") }} -->
+                                </div>
+                                    <p></p>
+                                    <tr>
+                                        {{ year.sel }}
+                                    </tr>
+
+
                                 <input type=submit value="Select Map to Display">
                             </form>
                         </div>
 
                     </div>
+                    <p></p>
+                    <p></p>
 
                 </div>
-                <div class = "hb-selector">
-                    <form action = {{ url_for('show_map') }} method="post">
-                        {{ form.hb }}
-                      <input type=submit value="Select Healthboard">
-                    </form>
-                </div>
-                <div class = "map-container">
-                    <div class = "map-link-container">
-                        <a class = "map-link" href="{{ url_for('show_graph') }}">Show Graphs</a>
+                <div class = "graph-controls">
+                    <h3> Graph Control </h3>
+
+                    <div class = "hb-selector">
+                        <form action = {{ url_for('show_map') }} method="post">
+                            {{ form.hb }}
+                         <input type=submit value="Select Healthboard">
+                        </form>
                     </div>
+                    <div class = "map-container">
+                        <div class = "map-link-container">
+                             <a class = "map-link" href="{{ url_for('show_graph') }}">Show Graphs</a>
+                     </div>
+                    </div>
+
+
                 </div>
+
+
             </div>
             </div>
 
