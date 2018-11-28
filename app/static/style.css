@@ -78,13 +78,12 @@ a:active {
 }
 
 .hb-selector {
-    text-align: right;
+
 }
 
 .map {
     display: inline-block;
     overflow: hidden;
-    width: 200px;
 }
 
 .map-selector {
@@ -93,7 +92,6 @@ a:active {
 }
 
 .map-text {
-    display: inline-flex;
     text-align: justify;
     width: 100%;
     font-size: 16px;
@@ -120,26 +118,13 @@ a:active {
 }
 
 .map-content-container {
-    text-align: right;
+    text-align: left;
 }
 
 .map-right-container {
     display: inline-block;
 }
 
-.slidecontainer {
-    width: 100%; /* Width of the outside container */
-}
-
-/* The slider itself */
-.slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
+.map-controls {
+    text-align: left;
 }
