@@ -99,7 +99,7 @@ def get_all_alcohol_conditions_graph(hb, condition):
                 and get_population_by_hb(hb, population_years[i]) is not None \
                 and get_population_by_hb(hb, population_years[i]) is not 0:
             output_list += [[population_years[i], (get_alcohol_by_hb(hb, financial_years[i], condition) /
-                             get_population_by_hb(hb, population_years[i])) * 100]]
+                             get_population_by_hb(hb, population_years[i])) * 10000]]
     if output_list:
         return output_list
 
@@ -113,7 +113,7 @@ def get_mental_graph(hb):
                 and get_population_by_hb(hb, population_years[i]) is not None \
                 and get_population_by_hb(hb, population_years[i]) is not 0:
             output_list += [[population_years[i], float(get_mental_by_hb(hb, financial_years[i]) /
-                             get_population_by_hb(hb, population_years[i])) * 100]]
+                             get_population_by_hb(hb, population_years[i])) * 10000]]
     if output_list:
         return output_list
 

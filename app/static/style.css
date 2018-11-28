@@ -3,6 +3,12 @@
     font-family: "Avenir Next", sans-serif;
 }
 
+img {
+    vertical-align: middle;
+    border-style: none;
+    margin: -10% 0;
+}
+
 img.resize {
     width:100px; /* you can use % */
     height: auto;
@@ -18,7 +24,7 @@ p {
 
 .app {
     display: inline-block;
-    margin-right: 46.5%
+    margin-right: 31%
 }
 
 a:link {
@@ -45,6 +51,7 @@ a:active {
     font-size: 40px;
     color: #007dc3;
     display: inline-block;
+    text-align:center;
 }
 
 .graph-link-container {
@@ -58,11 +65,12 @@ a:active {
     margin-right: 83%;
     color: white;
     text-align: left;
-    width: 100px
+    width: 120px
 }
 
+
 .graph-link {
-    padding: 10px 22px 10px 30px;
+        padding: 5px 10px 10px 9px;
 
 }
 
@@ -92,6 +100,9 @@ a:active {
 
 }
 
+.graph-selector{
+
+}
 .map {
     display: inline-block;
     overflow: hidden;
@@ -106,13 +117,13 @@ a:active {
     text-align: justify;
     width: 100%;
     font-size: 16px;
+    padding-right: 40px;
 }
 
 .map-container {
-    text-align: right;
+    text-align: left;
 }
 .map-link-container {
-    display: inline-block;
     border-radius: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -130,6 +141,7 @@ a:active {
 
 .map-content-container {
     text-align: left;
+    padding-left: 40px;
 }
 
 .map-right-container {
@@ -142,4 +154,22 @@ a:active {
 
 .map-selector {
     display: inline-block;
+}
+
+.map-radio {
+    padding-right:10px;
+}
+
+.map-radio-link {
+    border-radius: 10px;
+    padding-top: 1px;
+    padding-bottom: 2px;
+    border-width: 0px;
+    background-color: #007dc3;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    color: white;
+    text-align: center;
+    border-color: white;
 }

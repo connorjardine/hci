@@ -9,9 +9,9 @@
     <div class = "map-selector">
         <div class = "row">
             <div class = "col-sm-6">
-                <h2>{{ map_info }}</h2>
+                <h3>{{ map_info }}</h3>
                 <div class = "map">
-                    <img src=" {{ img_str }}" width="85%">
+                    <img src=" {{ img_str }}" width="85%" margin="-11% 0"/>
                 </div>
             </div>
             <div class = "col-sm-6">
@@ -20,8 +20,13 @@
                         <p font-size="20px">Use this application to compare and contrast between alcohol related hospital stays and mental health related
                         hospital stays for each Health Board in Scotland.</p>
                         <p>
-                            Areas are on a colour scale of light to dark where a darker colour represents a larger amount of hospital staysper 100 population and a
+                            Areas are on a colour scale of light to dark where a darker colour represents a larger amount of hospital stays per 10000 population and a
                             lighter colour represents less patients.
+                        </p>
+                        <p>
+                            In the case of the combined map, we are showing the difference between the alcohol related stays and mental health related stays per health board.
+                            Darker colours indicate areas where there appears to be a correlation between the number of patients who are admitted for alcohol conditions and
+                            the number of patients admitted for mental health conditions.
                         </p>
 
                     </div>
@@ -35,18 +40,18 @@
                                     {% for i in year.graph %}
                                     <tr>
                                         <td>{{ i }}</td>
-                                        <td>{{ i.label }}</td>
+                                        <td>{{ i.label(class_="map-radio")}}</td>
                                     </tr>
                                     {% endfor %}
                                     <!--{{ year.graph(class_="map-selector") }} -->
                                 </div>
-                                    <p></p>
+                                <br>
                                     <tr>
-                                        {{ year.sel }}
+                                        {{ year.sel}}
                                     </tr>
 
 
-                                <input type=submit value="Select Map to Display">
+                                <input class="map-radio-link" type=submit value="Select Map to Display">
                             </form>
                         </div>
 
@@ -58,17 +63,18 @@
                 <div class = "graph-controls">
                     <h3> Graph Control </h3>
 
-                    <div class = "hb-selector">
+                    <div class = "graph-selector">
                         <form action = {{ url_for('show_map') }} method="post">
                             {{ form.hb }}
-                         <input type=submit value="Select Healthboard">
+                         <input class="map-radio-link" type=submit value="Select Healthboard">
                         </form>
-                    </div>
-                    <div class = "map-container">
-                        <div class = "map-link-container">
-                             <a class = "map-link" href="{{ url_for('show_graph') }}">Show Graphs</a>
+                        <div class = "map-container">
+                        <div class = "graph-link-container">
+                             <a class = "graph-link" href="{{ url_for('show_graph') }}">Show Graphs</a>
                      </div>
                     </div>
+                    </div>
+
 
 
                 </div>
