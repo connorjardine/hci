@@ -49,27 +49,30 @@ def show_map():
     global currhb
     global currg
 
-    img_str = ".\static\map_" + str(curryr) + "mental" + "Ratio.png"
+    map_info = "Year: " + str(curryr) + "        Map Type: graph of " + currg + " data"
+
+    img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
 
     if request.method == 'POST' and form.validate():
         print(form.hb.data)
 
         currhb= int(form.hb.data)
-        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
+        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
 
     if request.method == 'POST' and year.validate():
         print(year.sel.data)
 
         curryr = int(year.sel.data)
         img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
-        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
+        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
 
     if request.method == 'POST' and graph.validate():
         print(graph.graph.data)
         currg = graph.graph.data
-        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
+        img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
+        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
 
-    return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph)
+    return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
 
 
 @app.route('/graph')

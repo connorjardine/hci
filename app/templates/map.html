@@ -9,6 +9,7 @@
     <div class = "map-selector">
         <div class = "row">
             <div class = "col-sm-6">
+                <h2>{{ map_info }}</h2>
                 <div class = "map">
                     <img src=" {{ img_str }}" width="100%">
                 </div>
@@ -35,12 +36,6 @@
 
                 <div class = "hb-selector">
                     <form action = {{ url_for('show_map') }} method="post">
-                        {{ form.hb }}
-                      <input type=submit value="Select Healthboard">
-                    </form>
-                </div>
-                <div class = "hb-selector">
-                    <form action = {{ url_for('show_map') }} method="post">
                         {{ year.sel }}
                       <input type=submit value="Select Year">
                     </form>
@@ -49,6 +44,12 @@
                     <form action = {{ url_for('show_map') }} method="post">
                         {{ graph.graph }}
                       <input type=submit value="Select Map">
+                    </form>
+                </div>
+                <div class = "hb-selector">
+                    <form action = {{ url_for('show_map') }} method="post">
+                        {{ form.hb }}
+                      <input type=submit value="Select Healthboard">
                     </form>
                 </div>
                 <div class = "map-container">
