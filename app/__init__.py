@@ -19,22 +19,20 @@ currg = "combined"
 class SimpleForm(Form):
     hb = SelectField('Languages', choices=[('0', 'NHS Ayrshire and Arran'), ('1', 'NHS Borders'),
                                            ('2', 'NHS Dumfries and Galloway'),
-                                           ('3', 'NHS Fife'), ('4', 'NHS Forth Valley'), ('5', 'NHS Grampian'),
-                                           ('6', 'NHS Greater Glasgow and Clyde'),
-                                           ('7', 'NHS Highland'),
-                                           ('8', 'NHS Lanarkshire'),
-                                           ('9', 'NHS Lothian'),
-                                           ('10', 'NHS Orkney'),
-                                           ('11', 'NHS Shetland'),
-                                           ('12', 'NHS Tayside'),
-                                           ('13', 'NHS Western Isles')])
+                                           ('3', 'NHS Forth Valley'), ('4', 'NHS Grampian'),
+                                           ('5', 'NHS Greater Glasgow and Clyde'),
+                                           ('6', 'NHS Highland'),
+                                           ('7', 'NHS Lanarkshire'),
+                                           ('8', 'NHS Lothian'),
+                                           ('9', 'NHS Orkney'),
+                                           ('10', 'NHS Shetland'),
+                                           ('11', 'NHS Western Isles')])
 
+# ('13', 'NHS Tayside'), ('12', 'NHS Fife'),
 
 class IntermedForm(Form):
     sel = SelectField('Languages', choices=[('2011', '2011'), ('2012', '2012'), ('2013','2013'),
                                             ('2014','2014'), ('2015','2015'), ('2016','2016'), ('2017','2017')])
-
-class GraphForm(Form):
     graph = RadioField('Label', choices=[('mental','mental'),('alcohol','alcohol'),('combined','combined')])
 
 
@@ -43,7 +41,6 @@ class GraphForm(Form):
 def show_map():
     form = SimpleForm(request.form)
     year = IntermedForm(request.form)
-    graph = GraphForm(request.form)
 
     global curryr
     global currhb
@@ -54,25 +51,19 @@ def show_map():
     img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
 
     if request.method == 'POST' and form.validate():
-        print(form.hb.data)
-
-        currhb= int(form.hb.data)
-        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
+        currhb = int(form.hb.data)
+        return render_template('map.html', form=form, year=year, img_str=img_str, map_info=map_info)
 
     if request.method == 'POST' and year.validate():
-        print(year.sel.data)
-
         curryr = int(year.sel.data)
-        img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
-        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
+        currg = year.graph.data
 
-    if request.method == 'POST' and graph.validate():
-        print(graph.graph.data)
-        currg = graph.graph.data
         img_str = ".\static\map_" + str(curryr) + currg + "Ratio.png"
-        return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
+        map_info = "Year: " + str(curryr) + "        Map Type: graph of " + currg + " data"
 
-    return render_template('map.html', form=form, year=year, img_str=img_str, graph=graph, map_info=map_info)
+        return render_template('map.html', form=form, year=year, img_str=img_str, map_info=map_info)
+
+    return render_template('map.html', form=form, year=year, img_str=img_str,  map_info=map_info)
 
 
 @app.route('/graph')
